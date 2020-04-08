@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using SalesWeb.Asp.NET.Models;
+using SalesWeb.Asp.NET.Data;
 
 namespace SalesWeb.Asp.NET
 {
@@ -39,15 +40,22 @@ namespace SalesWeb.Asp.NET
             services.AddDbContext<SalesWebAspNETContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("SalesWebAspNETContext"), builder =>
                     builder.MigrationsAssembly("SalesWeb.Asp.NET")));
+
+
+            services.AddScoped<SeedingService>();//Registra nosso serviço na igeção de dependência da aplicação 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
+            //Verifica se o perfil é de desenvovilmento
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //Metodo para popular a base da dados
+                seedingService.Seed();
             }
+            //se não for desenvolvimento é porque o site já está publicado
             else
             {
                 app.UseExceptionHandler("/Home/Error");

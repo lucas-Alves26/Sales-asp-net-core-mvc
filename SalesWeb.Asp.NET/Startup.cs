@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using SalesWeb.Asp.NET.Models;
 using SalesWeb.Asp.NET.Data;
+using SalesWeb.Asp.NET.Services;
 
 namespace SalesWeb.Asp.NET
 {
@@ -41,8 +42,9 @@ namespace SalesWeb.Asp.NET
                     options.UseMySql(Configuration.GetConnectionString("SalesWebAspNETContext"), builder =>
                     builder.MigrationsAssembly("SalesWeb.Asp.NET")));
 
-
-            services.AddScoped<SeedingService>();//Registra nosso serviço na igeção de dependência da aplicação 
+            //Registra nosso serviço na igeção de dependência da aplicação 
+            services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWeb.Asp.NET.Services
 {
@@ -30,7 +31,8 @@ namespace SalesWeb.Asp.NET.Services
         //retorna o vendedor com pelo id dele.
         public Seller FindById(int id)
         {
-            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+            //Include(obj => obj.Department) expressão lambida para trazer o departamento junto
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
         //remove o vendedor

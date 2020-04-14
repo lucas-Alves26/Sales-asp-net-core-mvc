@@ -44,6 +44,7 @@ namespace SalesWeb.Asp.NET.Controllers
             return RedirectToAction(nameof(Index)); // atualiza a pagina pra index
         }
 
+        //Excluir Vendedor
         public IActionResult Delete(int? id)
         {
             if(id == null)
@@ -67,6 +68,22 @@ namespace SalesWeb.Asp.NET.Controllers
         {
             _sellerService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
         }
     }
 }

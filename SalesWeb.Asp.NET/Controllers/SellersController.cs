@@ -43,5 +43,30 @@ namespace SalesWeb.Asp.NET.Controllers
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index)); // atualiza a pagina pra index
         }
+
+        public IActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //Remove o item e direciona para pagina index
+        public IActionResult Delete (int id)
+        {
+            _sellerService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

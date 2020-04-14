@@ -42,9 +42,10 @@ namespace SalesWeb.Asp.NET
                     options.UseMySql(Configuration.GetConnectionString("SalesWebAspNETContext"), builder =>
                     builder.MigrationsAssembly("SalesWeb.Asp.NET")));
 
-            //Registra nosso serviço na igeção de dependência da aplicação 
+            //Registra nosso serviço na injeção de dependência da aplicação 
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<DepartmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

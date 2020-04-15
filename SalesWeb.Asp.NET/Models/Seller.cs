@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace SalesWeb.Asp.NET.Models
@@ -7,9 +8,20 @@ namespace SalesWeb.Asp.NET.Models
     public class Seller
     {
         public int Id { get; set; }
+
+        [Display(Name = "Nome")]
         public string Name { get; set; }
+
+        [DataType(DataType.EmailAddress)] //Deixa o email com o link para abrir em sua caixa de email padrão
         public string Email { get; set; }
+
+        [Display(Name = "Data de Nascimeto")]
+        [DataType(DataType.Date)] //dd/MM/yyyy
+        [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; } // Data de Nascimento
+
+        [Display(Name ="Salário base")]
+        [DisplayFormat(DataFormatString = "{0:f2}")]// adiciona duas casas decimais
         public double BaseSalary { get; set; }
         public Department Department { get; set; }
         public int DepartmentId { get; set; }

@@ -10,16 +10,23 @@ namespace SalesWeb.Asp.NET.Models
         public int Id { get; set; }
 
         [Display(Name = "Nome")]
+        [Required(ErrorMessage = "{0} requerido")]
+        [StringLength(60, MinimumLength =3, ErrorMessage ="{0} deve ter entre 3 a 60 caracteres")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "{0} requerido")]
+        [EmailAddress(ErrorMessage = "Entre com um E-mail válido")]
         [DataType(DataType.EmailAddress)] //Deixa o email com o link para abrir em sua caixa de email padrão
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "{0} requerido")]
         [Display(Name = "Data de Nascimeto")]
         [DataType(DataType.Date)] //dd/MM/yyyy
         [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; } // Data de Nascimento
 
+        [Required(ErrorMessage = "{0} requerido")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} deve ser entre {1} até {2}")]
         [Display(Name ="Salário base")]
         [DisplayFormat(DataFormatString = "{0:f2}")]// adiciona duas casas decimais
         public double BaseSalary { get; set; }
